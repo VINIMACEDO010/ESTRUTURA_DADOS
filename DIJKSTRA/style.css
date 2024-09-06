@@ -1,72 +1,80 @@
-
-
-/* Define a aparência geral da página */
+/* Estilos gerais do corpo da página */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
     height: 100vh;
 }
 
-/* Estiliza o container do formulário */
+/* Estilos para o container do formulário */
 .container {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Estiliza os títulos */
+/* Estilos para o título */
 h1 {
     font-size: 24px;
     color: #333;
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
-/* Estiliza o formulário */
+/* Estilos para o formulário */
 form {
     display: flex;
     flex-direction: column;
+    align-items: center;  /* Centraliza o formulário */
 }
 
-/* Estiliza os rótulos dos campos */
+/* Estilos para os rótulos */
 label {
     font-size: 16px;
     color: #555;
     margin-bottom: 8px;
 }
 
-/* Estiliza os campos de seleção */
+/* Estilos para os campos de seleção */
 select {
     padding: 8px;
     margin-bottom: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    width: 150px;  /* Tamanho reduzido do campo de seleção */
+    margin: 0 auto;  /* Centraliza o campo de seleção */
 }
 
-/* Estiliza o botão de envio */
+/* Estilos para o botão de envio */
 button {
-    padding: 10px;
+    padding: 8px;  /* Tamanho reduzido */
     background-color: #28a745;
     color: #fff;
     border: none;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 14px;  /* Tamanho menor */
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+    width: 120px;  /* Tamanho reduzido do botão */
+    margin: 0 auto;  /* Centraliza o botão */
 }
 
 button:hover {
     background-color: #218838;
 }
 
-/* Estiliza os resultados */
+/* Estilos para a exibição dos resultados */
 .results {
     margin-top: 20px;
     font-size: 16px;
