@@ -73,10 +73,3 @@ button {
 button:hover {
     background-color: #ff0000;
 }
-
-/* Estilos para a exibição dos resultados */
-.results {
-    margin-top: 20px;
-    font-size: 16px;
-    color: #333;
-}

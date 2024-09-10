@@ -139,9 +139,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $result = dijkstra($graph, $start, $end);
 
-    echo "Custo total de {$start} a {$end}: R$ " . number_format($result['distance'], 2) . PHP_EOL;
-    echo "Caminho: " . implode(" -> ", $result['path']) . PHP_EOL;
-} else {
-    echo "Método de requisição inválido.";
-}
-?>
+    echo "CUSTO TOTAL DE {$start} A {$end}: " . number_format($result['distance'], 0) . "<br>";
+    echo "CAMINHO: " . implode(" -> ", $result['path']) . "<br>";
+    } else {
+        echo "Método de requisição inválido.";
+    }
+    ?>
+    
