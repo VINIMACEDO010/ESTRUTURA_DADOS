@@ -73,3 +73,17 @@ button {
 button:hover {
     background-color: #ff0000;
 }
+
+.calculator-frame {
+    padding: 20px;
+    margin-top: 150px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.Mapa-frame {
+    padding: 20px;
+    margin-top: 150px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

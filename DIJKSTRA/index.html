@@ -7,50 +7,65 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Calculadora de Caminho Mais Curto</h1>
 
-    <form action="dijkstra.php" method="POST">
-        <label for="start">Cidade de Partida:</label>
-        <select name="start" id="start">
-            <option value="POUSO REDONDO">Pouso Redondo</option>
-            <option value="AURORA">Aurora</option>
-            <option value="TAIÓ">Taió</option>
-            <option value="LONTRAS">Lontras</option>
-            <option value="BRAÇO DO TROMBUDO">Braço do Trombudo</option>
-            <option value="IMBUIA">Imbuia</option>
-            <option value="AGROLÂNDIA">Agrolândia</option>
-            <option value="IBIRAMA">Ibirama</option>
-            <option value="DONA EMMA">Dona Emma</option>
-            <option value="SALETE">Salete</option>
-            <option value="CHAPADÃO DO LAGEADO">Chapadão do Lageado</option>
-            <option value="RIO DO CAMPO">Rio do Campo</option>
-            <option value="TROMBUDO CENTRAL">Trombudo Central</option>
-            <option value="PRESIDENTE GETULIO">Presidente Getulio</option>
-            <option value="ITUPORANGA">Ituporanga</option>
-        </select>
-        
-        <br><br>
+    <div style="display: flex; align-items: flex-start;">
+        <div class="calculator-frame" style="margin-top: 200px;">
+            <h1>Calculadora de Caminho<br> Mais Curto</h1>
+            <form action="dijkstra.php" method="POST">
+                <br><br>
+                
+                <label for="start">Cidade de Partida:</label>
+            
+                <select name="start" id="start">
+                    <option value="POUSO REDONDO">Pouso Redondo</option>
+                    <option value="AURORA">Aurora</option>
+                    <option value="TAIÓ">Taió</option>
+                    <option value="LONTRAS">Lontras</option>
+                    <option value="BRAÇO DO TROMBUDO">Braço do Trombudo</option>
+                    <option value="IMBUIA">Imbuia</option>
+                    <option value="AGROLÂNDIA">Agrolândia</option>
+                    <option value="IBIRAMA">Ibirama</option>
+                    <option value="DONA EMMA">Dona Emma</option>
+                    <option value="SALETE">Salete</option>
+                    <option value="CHAPADÃO DO LAGEADO">Chapadão do Lageado</option>
+                    <option value="RIO DO CAMPO">Rio do Campo</option>
+                    <option value="TROMBUDO CENTRAL">Trombudo Central</option>
+                    <option value="PRESIDENTE GETULIO">Presidente Getulio</option>
+                    <option value="ITUPORANGA">Ituporanga</option>
+                </select>
+                
+                <br><br>
 
-        <label for="end">Cidade de Destino:</label>
-        <select name="end" id="end">
-            <option value="POUSO REDONDO">Pouso Redondo</option>
-            <option value="AURORA">Aurora</option>
-            <option value="TAIÓ">Taió</option>
-            <option value="LONTRAS">Lontras</option>
-            <option value="BRAÇO DO TROMBUDO">Braço do Trombudo</option>
-            <option value="IMBUIA">Imbuia</option>
-            <option value="AGROLÂNDIA">Agrolândia</option>
-            <option value="IBIRAMA">Ibirama</option>
-            <option value="DONA EMMA">Dona Emma</option>
-            <option value="SALETE">Salete</option>
-            <option value="CHAPADÃO DO LAGEADO">Chapadão do Lageado</option>
-            <option value="RIO DO CAMPO">Rio do Campo</option>
-            <option value="TROMBUDO CENTRAL">Trombudo Central</option>
-            <option value="PRESIDENTE GETULIO">Presidente Getulio</option>
-            <option value="ITUPORANGA">Ituporanga</option>
-        </select>
-        
-        <br><br>
+                <label for="end">Cidade de Destino:</label>
+                <select name="end" id="end">
+                    <option value="POUSO REDONDO">Pouso Redondo</option>
+                    <option value="AURORA">Aurora</option>
+                    <option value="TAIÓ">Taió</option>
+                    <option value="LONTRAS">Lontras</option>
+                    <option value="BRAÇO DO TROMBUDO">Braço do Trombudo</option>
+                    <option value="IMBUIA">Imbuia</option>
+                    <option value="AGROLÂNDIA">Agrolândia</option>
+                    <option value="IBIRAMA">Ibirama</option>
+                    <option value="DONA EMMA">Dona Emma</option>
+                    <option value="SALETE">Salete</option>
+                    <option value="CHAPADÃO DO LAGEADO">Chapadão do Lageado</option>
+                    <option value="RIO DO CAMPO">Rio do Campo</option>
+                    <option value="TROMBUDO CENTRAL">Trombudo Central</option>
+                    <option value="PRESIDENTE GETULIO">Presidente Getulio</option>
+                    <option value="ITUPORANGA">Ituporanga</option>
+                </select>
+                
+                <br><br>
 
-        <button type="submit">Calcular</button>
-    </form>
+                <button type="submit">Calcular</button>
+            </form>
+        </div>
+
+        <div style="margin-left: 150px; ">
+            <div class="Mapa-frame" style="margin-top: 200px;">
+            <h2 style="margin-left: 200px;">Mapa de Localização</h2>
+            <img src="Mapa.jpg" alt="Mapa de Cidades" width="650" height="400">
+        </div>
+    </div>
+</body>
+</html>
