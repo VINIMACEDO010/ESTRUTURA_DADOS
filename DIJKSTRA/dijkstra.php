@@ -1,6 +1,6 @@
 <?php
-// Passo 1: Montagem do grafo
-$graph = [
+// Passo 1: Montagem do grafo das cidades e suas respectivas distâncias
+$cidadesGrafo = [
     'POUSO REDONDO' => [
         'TAIÓ' => 30,
         'IMBUIA' => 85,
@@ -9,13 +9,13 @@ $graph = [
         'BRAÇO DO TROMBUDO' => 60
     ],
     'AURORA' => [
-        'IBIRAMA' => 160,
+        'IBIRAMA' => 160
     ],
     'TAIÓ' => [
         'POUSO REDONDO' => 30
     ],
     'LONTRAS' => [
-        'ITUPORANGA' => 120,
+        'ITUPORANGA' => 120
     ],
     'BRAÇO DO TROMBUDO' => [
         'IBIRAMA' => 180,
@@ -23,7 +23,7 @@ $graph = [
         'ITUPORANGA' => 90,
         'POUSO REDONDO' => 60,
         'TROMBUDO CENTRAL' => 15,
-        'AGROLÂNDIA' => 15,
+        'AGROLÂNDIA' => 15
     ],
     'IMBUIA' => [
         'POUSO REDONDO' => 85
@@ -76,73 +76,88 @@ $graph = [
 ];
 
 // Passo 2: Implementação da função de Dijkstra
-function dijkstra($graph, $start, $end) {
-    // Verifica se o início e o fim estão no grafo
-    if (!isset($graph[$start]) || !isset($graph[$end])) {
-        return ['distance' => INF, 'path' => []];
+function calcularCaminhoMaisCurto($cidadesGrafo, $cidadeOrigem, $cidadeDestino) {
+    // Verifica se a cidade de origem e a cidade de destino estão no grafo
+    if (!isset($cidadesGrafo[$cidadeOrigem]) || !isset($cidadesGrafo[$cidadeDestino])) {
+        return ['distanciaTotal' => INF, 'caminho' => []];
     }
-    
-    // Array para armazenar a distância mínima de $start para cada cidade
-    $dist = [];
-    // Array para armazenar o caminho mais curto conhecido até agora
-    $previous = [];
-    // Fila de prioridades com as cidades a serem exploradas
-    $queue = [];
-    
-    foreach ($graph as $vertex => $neighbors) {
-        if ($vertex == $start) {
-            $dist[$vertex] = 0;
-            $queue[$vertex] = 0;
+
+    // Inicializa as distâncias, o caminho anterior e a fila de prioridades
+    $distanciaCidade = [];
+    $cidadeAnterior = [];
+    $filaDeProcessamento = [];
+
+    // Definindo as distâncias iniciais
+    foreach ($cidadesGrafo as $cidadeAtual => $vizinhos) {
+        if ($cidadeAtual == $cidadeOrigem) {
+            $distanciaCidade[$cidadeAtual] = 0;
+            $filaDeProcessamento[$cidadeAtual] = 0;
         } else {
-            $dist[$vertex] = INF; // Inicialmente, todas as distâncias são infinitas
-            $queue[$vertex] = INF;
+            $distanciaCidade[$cidadeAtual] = INF;
+            $filaDeProcessamento[$cidadeAtual] = INF;
         }
-        $previous[$vertex] = null;
+        $cidadeAnterior[$cidadeAtual] = null;
     }
 
-    while (!empty($queue)) {
-        // Seleciona a cidade com a menor distância conhecida
-        $minVertex = array_search(min($queue), $queue);
-        if ($minVertex === $end) {
-            break; // Encontramos o caminho mais curto para o destino
+    // Loop principal para encontrar o caminho mais curto
+    while (!empty($filaDeProcessamento)) {
+        // Seleciona a cidade com a menor distância
+        $cidadeMaisProxima = array_search(min($filaDeProcessamento), $filaDeProcessamento);
+
+        // Se chegamos ao destino, saímos do loop
+        if ($cidadeMaisProxima === $cidadeDestino) {
+            break;
         }
 
-        foreach ($graph[$minVertex] as $neighbor => $cost) {
-            $alt = $dist[$minVertex] + $cost;
-            if ($alt < $dist[$neighbor]) { // Encontramos um caminho melhor
-                $dist[$neighbor] = $alt;
-                $previous[$neighbor] = $minVertex;
-                $queue[$neighbor] = $alt;
+        // Processa os vizinhos da cidade atual
+        foreach ($cidadesGrafo[$cidadeMaisProxima] as $vizinho => $custo) {
+            $novaDistancia = $distanciaCidade[$cidadeMaisProxima] + $custo;
+
+            // Se encontramos um caminho mais curto, atualizamos as distâncias e o caminho
+            if ($novaDistancia < $distanciaCidade[$vizinho]) {
+                $distanciaCidade[$vizinho] = $novaDistancia;
+                $cidadeAnterior[$vizinho] = $cidadeMaisProxima;
+                $filaDeProcessamento[$vizinho] = $novaDistancia;
             }
         }
-        unset($queue[$minVertex]); // Remover o nó já processado
+
+        // Remove a cidade já processada da fila
+        unset($filaDeProcessamento[$cidadeMaisProxima]);
     }
 
-    // Reconstruir o caminho mais curto
-    $path = [];
-    $u = $end;
-    while (isset($previous[$u]) && $previous[$u] !== null) {
-        array_unshift($path, $u);
-        $u = $previous[$u];
-    }
-    if ($dist[$end] != INF) {
-        array_unshift($path, $start);
+    // Reconstrução do caminho mais curto
+    $caminhoMaisCurto = [];
+    $cidadeAtual = $cidadeDestino;
+    while (isset($cidadeAnterior[$cidadeAtual]) && $cidadeAnterior[$cidadeAtual] !== null) {
+        array_unshift($caminhoMaisCurto, $cidadeAtual);
+        $cidadeAtual = $cidadeAnterior[$cidadeAtual];
     }
 
-    return ['distance' => $dist[$end], 'path' => $path];
+    // Inclui a cidade de origem no caminho, se o destino foi alcançado
+    if ($distanciaCidade[$cidadeDestino] != INF) {
+        array_unshift($caminhoMaisCurto, $cidadeOrigem);
+    }
+
+    // Retorna a distância total e o caminho encontrado
+    return [
+        'distanciaTotal' => $distanciaCidade[$cidadeDestino],
+        'caminho' => $caminhoMaisCurto
+    ];
 }
 
-// Passo 3: Interface para Entrada e Saída
+// Passo 3: Interface de entrada e saída de dados via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $start = $_POST['start'] ?? 'POUSO REDONDO';
-    $end = $_POST['end'] ?? 'ITUPORANGA';
+    // Obtém as cidades de origem e destino enviadas pelo formulário
+    $cidadeOrigem = $_POST['cidadeOrigem'] ?? 'POUSO REDONDO';
+    $cidadeDestino = $_POST['cidadeDestino'] ?? 'ITUPORANGA';
 
-    $result = dijkstra($graph, $start, $end);
+    // Calcula o caminho mais curto entre as cidades de origem e destino
+    $resultado = calcularCaminhoMaisCurto($cidadesGrafo, $cidadeOrigem, $cidadeDestino);
 
-    echo "CUSTO TOTAL DE {$start} A {$end}: " . number_format($result['distance'], 0) . "<br>";
-    echo "CAMINHO: " . implode(" -> ", $result['path']) . "<br>";
-    } else {
-        echo "Método de requisição inválido.";
-    }
-    ?>
-    
+    // Exibe os resultados na tela
+    echo "CUSTO TOTAL DE {$cidadeOrigem} A {$cidadeDestino}: " . number_format($resultado['distanciaTotal'], 0) . "<br>";
+    echo "CAMINHO: " . implode(" -> ", $resultado['caminho']) . "<br>";
+} else {
+    echo "Método de requisição inválido.";
+}
+?>
