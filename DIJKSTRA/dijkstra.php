@@ -1,5 +1,5 @@
 <?php
-// Passo 1: Montagem do grafo
+
 $graph = [
     'POUSO REDONDO' => [
         'TAIÓ' => 30,
@@ -47,10 +47,10 @@ $graph = [
     ],
     'SALETE' => [
         'POUSO REDONDO' => 40,
-        'CHAPADÃO DO LAGEADO' => 250
+        'CHAPADÃO DO LAGEADO' => 150
     ],
     'CHAPADÃO DO LAGEADO' => [
-        'SALETE' => 250,
+        'SALETE' => 150,
         'PRESIDENTE GETULIO' => 160,
         'TROMBUDO CENTRAL' => 225
     ],
@@ -75,7 +75,7 @@ $graph = [
     ]
 ];
 
-// Passo 2: Implementação da função de Dijkstra
+
 function dijkstra($graph, $start, $end) {
     // Verifica se o início e o fim estão no grafo
     if (!isset($graph[$start]) || !isset($graph[$end])) {
@@ -94,17 +94,17 @@ function dijkstra($graph, $start, $end) {
             $dist[$vertex] = 0;
             $queue[$vertex] = 0;
         } else {
-            $dist[$vertex] = INF; // Inicialmente, todas as distâncias são infinitas
+            $dist[$vertex] = INF; 
             $queue[$vertex] = INF;
         }
         $previous[$vertex] = null;
     }
 
     while (!empty($queue)) {
-        // Seleciona a cidade com a menor distância conhecida
+        
         $minVertex = array_search(min($queue), $queue);
         if ($minVertex === $end) {
-            break; // Encontramos o caminho mais curto para o destino
+            break; 
         }
 
         foreach ($graph[$minVertex] as $neighbor => $cost) {
@@ -118,7 +118,7 @@ function dijkstra($graph, $start, $end) {
         unset($queue[$minVertex]); // Remover o nó já processado
     }
 
-    // Reconstruir o caminho mais curto
+
     $path = [];
     $u = $end;
     while (isset($previous[$u]) && $previous[$u] !== null) {
@@ -132,7 +132,7 @@ function dijkstra($graph, $start, $end) {
     return ['distance' => $dist[$end], 'path' => $path];
 }
 
-// Passo 3: Interface para Entrada e Saída
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $start = $_POST['start'] ?? 'POUSO REDONDO';
     $end = $_POST['end'] ?? 'ITUPORANGA';
